@@ -7,9 +7,9 @@ services:
     network_mode: host
     restart: unless-stopped
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy-data:/data:rw
-      - caddy-config:/config:rw
+      - /home/jwowk/docker/searxng/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - /home/jwowk/docker/searxng/caddy/data:/data
+      - /home/jwowk/docker/searxng/caddy/config:/config
     environment:
       - SEARXNG_HOSTNAME=${SEARXNG_HOSTNAME:-http://localhost}
       - SEARXNG_TLS=${LETSENCRYPT_EMAIL:-internal}
@@ -27,7 +27,7 @@ services:
     networks:
       - searxng
     volumes:
-      - valkey-data2:/data
+      - /home/jwowk/docker/searxng/valkey-data2:/data
     logging:
       driver: "json-file"
       options:
@@ -43,8 +43,8 @@ services:
     ports:
       - "127.0.0.1:8888:8080"
     volumes:
-      - ./searxng:/etc/searxng:rw
-      - searxng-data:/var/cache/searxng:rw
+      - /home/jwowk/docker/searxng/searxng:/etc/searxng
+      - /home/jwowk/docker/searxng/data:/var/cache/searxng
     environment:
       - SEARXNG_BASE_URL=https://${SEARXNG_HOSTNAME:-localhost}/
     logging:
@@ -55,9 +55,3 @@ services:
 
 networks:
   searxng:
-
-volumes:
-  caddy-data:
-  caddy-config:
-  valkey-data2:
-  searxng-data:
