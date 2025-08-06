@@ -41,7 +41,7 @@ services:
     networks:
       - searxng
     ports:
-      - "127.0.0.1:8888:8080"
+      - 8888:8080
     volumes:
       - /home/jwowk/docker/searxng/searxng:/etc/searxng
       - /home/jwowk/docker/searxng/data:/var/cache/searxng
